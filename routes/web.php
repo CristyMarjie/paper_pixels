@@ -43,14 +43,15 @@ Route::middleware('auth')->group(function(){
         Route::get('/validate/email',[AdminController::class,'validateEmail']);
         Route::get('/users',[AdminController::class,'viewUsers']);
         Route::get('/view/user',[AdminController::class,'viewUserUI'])->name('view-user');
-        Route::post('/update/profile/credentials/{id}',[AdminController::class,'updateUserCredentials']); #ADMIN
-        Route::post('/update/profile/information/{id}',[AdminController::class,'updateUserInformation']); #ADMIN
+        Route::post('/update/profile/credentials/{id}',[AdminController::class,'updateUserCredentials']); 
+        Route::post('/update/profile/information/{id}',[AdminController::class,'updateUserInformation']); #
         Route::get('/profile/{id}',[AdminController::class,'viewUsersProfile'])->name('user.profile'); #NOT FOUND
         Route::get('/change-password/{id}',[AdminController::class,'updateUserCredential'])->name('user.change-password');
 
-        Route::get('/dashboard',[AuthController::class,'dashboard'])->name('dashboard'); #ADMIN
+        Route::get('/dashboard',[AuthController::class,'dashboard'])->name('dashboard'); 
 
-        Route::view('/products','pages.products.table')->name('viewProducts'); #ADMIN
+        Route::view('/products','pages.products.table')->name('viewProducts'); 
+        Route::view('/quote_requests','pages.quote_requests.table')->name('viewRequests'); #ADMIN
 
         Route::get('/logs/{id}',[AdminController::class,'viewLogDetails']);
         Route::post('/action/user/update/{id}',[AdminController::class,'actionUserUpdate']);

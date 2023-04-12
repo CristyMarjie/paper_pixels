@@ -104,59 +104,11 @@ class AuthController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-
-
-        if(Auth::user()->isAdmin()){
-            $announcements = Announcement::where('status',1)->get();
-        }else if(Auth::user()->isTenant()){
-
-            $user_tenant = $user->load('tenants.master_tenant.contracts');
-            $user_contract = $user_tenant->tenants[0]->master_tenant;
-            $announcements = Announcement::with('user_announcements.role')->where('status',1)->whereHas('user_announcements',function($query){
-                $query->where('role_id',Auth::user()->role_id);
-            })->get();
-
-            $specific_announcements = Announcement::with('specific_announcement')->whereHas('specific_announcement',function($query){
-                $query->where('tenant_id', Auth::user()->tenants[0]->id);
-            })->get();
-
-            $categorized_announcement = Announcement::with('categorized_announcement')->whereHas('categorized_announcement', function($query) use($user_contract){
-                $query->where('category',($user_contract ? $user_contract->contracts[0]->business_type : ''));
-            })->get();
-
-           $announcements = $merged_announcement = $announcements->merge($specific_announcements,$categorized_announcement);
-
-        }else{
-
-            $announcements = Announcement::with('user_announcements.role')->where('status',1)->whereHas('user_announcements',function($query){
-                $query->where('role_id',Auth::user()->role_id);
-		})->get();
+        if (Auth::user()->isAdmin() || Auth::user()->isStaff()) {
+            // $categories = Category::where('status',1)->get();
+            return view('pages.dashboard.dashboard',['roles' => Role::get()]);
+        } else {
+            
         }
-
-        foreach($announcements as $announcement)
-        {
-         $announcement->user_announcements['added_by_data'] = User::with('people','role')->findOrFail($announcement->added_by);
-        }
-
-
-        foreach(SystemLog::with('user.people')->get() as $log)
-        {
-            if($log->status === 2){
-                $date_diff = (strtotime(Carbon::now()) - strtotime($log->created_at));
-
-                if( abs(round($date_diff/86400)) >= 2)  SystemLog::where('id',$log->id)->update(['status' => 3]);
-            }
-        }
-        $expiredContracts = MasterTenant::with('contracts')->whereHas('contracts', function($query){
-            $query->where('lease_term_end','<=', now()->subMonth());
-        })->get();
-
-
-        return view('pages.dashboard.dashboard',['roles' => Role::get(),
-                                                 'announcements' => $announcements,
-                                                 'expiredContracts' => $expiredContracts,
-                                                 'users' => count(User::get()),
-                                                 'mallDirectories' => count(MallDirectory::get()),
-                                                 'logs' => SystemLog::with('user.people')->where('status', '<>',3)->get()]);
     }
 }

@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Location extends Model
+class CategoryProduct extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    protected $fillable = ['collection_handler'];
+    public function product()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

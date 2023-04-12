@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
 
     public const ADMIN_DASHBOARD = '/admin/dashboard';
 
-    public const STAFF_DASHBOARD = '/staff/dashboard';
+    public const STAFF_DASHBOARD = '/admin/dashboard';
 
     public const CUSTOMER_PAGE   = '/';
 
