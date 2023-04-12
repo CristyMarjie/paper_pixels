@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/tenant/list',[TenantController::class,'getActiveTenants']); #ADMIN
         Route::view('/tenants','pages.tenants.table')->name('viewTenants'); #ADMIN
-
+        Route::view('/products','pages.products.table')->name('viewProducts'); #ADMIN
 
         Route::get('/contracts/{id}',[ContractController::class,'contractListView'])->name('admin.view.contracts'); #ADMIN ACCESS
         Route::get('/tenant/contracts/{contractID}',[ContractController::class,'contractList']);
