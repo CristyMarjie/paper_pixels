@@ -10,11 +10,8 @@ class Role extends Model
     use HasFactory;
 
     public const ADMIN = 1;
-    public const FINANCE = 2;
-    public const LEASING = 3;
-    public const TENANTS = 4;
-    Public const TRMO = 5;
-
+    public const STAFF = 2;
+    public const CUSTOMER = 3;
     protected $fillable = [
         'description'
     ];

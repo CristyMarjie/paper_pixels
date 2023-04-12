@@ -49,17 +49,11 @@ class AuthController extends Controller
                 case Role::ADMIN:
                         $redirect = RouteServiceProvider::ADMIN_DASHBOARD;
                     break;
-                case Role::FINANCE:
-                        $redirect = RouteServiceProvider::FINANCE_DASHBOARD;
+                case Role::STAFF:
+                        $redirect = RouteServiceProvider::STAFF_DASHBOARD;
                     break;
-                case Role::LEASING:
-                        $redirect = RouteServiceProvider::LEASING_DASHBOARD;
-                    break;
-                case Role::TENANTS:
-                        $redirect = RouteServiceProvider::TENANTS_DASHBOARD;
-                    break;
-                case Role::TRMO:
-                        $redirect = RouteServiceProvider::TRMO_DASHBOARD;
+                case Role::CUSTOMER:
+                        $redirect = RouteServiceProvider::CUSTOMER_PAGE;
                     break;
                 default:
                     throw new Error('Invalid User Role', 400);
@@ -82,11 +76,18 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        /*********************************************
-        * Logging out currently authenticated user
-        *********************************************/
-        Auth::logout();
+        $user = Auth::user();
+        if(Auth::user()->isCustomer()){
+            /*********************************************
+            * Logging out currently authenticated user
+            *********************************************/
+            Auth::logout();
+            return redirect('/');
+        }else{
+            Auth::logout();
+            return redirect('/login');
 
+        }
         /*********************************************
         * Invalidate user session
         *********************************************/
@@ -97,7 +98,7 @@ class AuthController extends Controller
         /*********************************************
         *  redirect user to root
         *********************************************/
-        return redirect('/');
+        
     }
 
     public function dashboard()

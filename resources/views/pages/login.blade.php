@@ -16,7 +16,7 @@
     <link href="{{asset('assets/css/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 
-    <title>Login - Tenant Portal</title>
+    <title>Login</title>
 </head>
 <!--begin::Body-->
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled page-loading">

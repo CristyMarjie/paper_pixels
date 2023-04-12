@@ -51,33 +51,16 @@ class User extends Authenticatable
         return $this->belongsTo(People::class);
     }
 
-    // public function tenant(){
-    //     return $this->hasOne(Tenant::class);
-    // }
-
-
-    public function tenants(){
-        return $this->hasMany(Tenant::class);
-    }
-
     public function isAdmin(){
         return $this->role_id == Role::ADMIN;
     }
 
-    public function isFinance(){
-        return $this->role_id == Role::FINANCE;
+    public function isStaff(){
+        return $this->role_id == Role::STAFF;
     }
 
-    public function isLeasing(){
-        return $this->role_id == Role::LEASING;
-    }
-
-    public function isTenant(){
-        return $this->role_id == Role::TENANTS;
-    }
-
-    public function isTrmo(){
-        return $this->role_id == Role::TRMO;
+    public function isCustomer(){
+        return $this->role_id == Role::CUSTOMER;
     }
 
 }
