@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\UserController;
 use App\Repositories\AdminRepository;
 
@@ -62,34 +61,14 @@ Route::middleware('auth')->group(function(){
         Route::view('/faq','pages.dashboard.faq')->name('faq');
     });
 
-  
-
-
-        Route::get('/profile',[AdminController::class,'viewUsersProfile'])->name('profile');
-        Route::get('/change-password',[AdminController::class,'updateUserCredential'])->name('profile.change-password');
-        Route::get('/contracts',[ContractController::class,'contractListView'])->name('contracts'); #TENANT
-
-
-     Route::get('/tenant/migrations',[TenantController::class,'tenantMigrationView'])->name('tenant.migration.view');
-
-     Route::get('/tenant/migration/list',[TenantController::class,'tester']);
-
-
-
-     Route::prefix('/notice')->name('notice.')->group(function(){
-        Route::get('',[NoticeController::class,'addNoticeView'])->name('add');
-
-        Route::get('/details/{noticeId}',[NoticeController::class,'noticeDetails']);
-
-        Route::post('/storev2',[NoticeController::class,'store']);
-     });
+    Route::get('/profile',[AdminController::class,'viewUsersProfile'])->name('profile');
+    Route::get('/change-password',[AdminController::class,'updateUserCredential'])->name('profile.change-password');
 
      Route::prefix('/email')->name('email.')->group(function(){
         Route::get('/list',[EmailController::class,'getEmails']);
         Route::get('/details/{email_id}',[EmailController::class,'emailDetails']);
      });
-        Route::get('/notices',[NoticeController::class,'getNotices']);
-        Route::get('/tenants/cache',[TenantController::class,'tenants']);
+        
 });
 
 

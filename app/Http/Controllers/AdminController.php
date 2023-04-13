@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\ResponseApi;
-use App\Models\Location;
 
 use Illuminate\Support\Facades\Auth;
 use App\Interfaces\AdminInterface;
@@ -82,45 +81,13 @@ class AdminController extends Controller
     {
         return $this->adminInterface->viewLogDetails($id);
     }
-
-    public function viewfinanceLogsDetails()
-    {
-        return $this->adminInterface->viewfinanceLogsDetails();
-    }
-
     public function actionUserUpdate(Request $request, $id)
     {
         return $this->adminInterface->actionUserUpdate($request, $id);
     }
-
-    public function storeRequest(Request $request)
-    {
-        return $this->adminInterface->storeRequest($request);
-    }
-
     public function validateEmail(Request $request)
     {
         return $this->adminInterface->validateEmail($request->email, $request->isProfile, $request->currentID);
-    }
-
-    public function fetchTenantMaster($tenantID)
-    {
-        return $this->adminInterface->fetchTenantMaster($tenantID);
-    }
-
-    public function removeSoa($id)
-    {
-        return $this->adminInterface->removeSoa($id);
-    }
-
-    public function removeOR($id)
-    {
-        return $this->adminInterface->removeOR($id);
-    }
-
-    public function removeOthers($id)
-    {
-        return $this->adminInterface->removeOthers($id);
     }
 
 }
