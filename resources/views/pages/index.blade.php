@@ -35,9 +35,15 @@
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
-						<a class="link-white fs-2 fw-bolder" href="../../demo1/dist/index.html">
+						<a class="link-white fs-4 fw-bolder" href="../../demo1/dist/index.html">
 							<!-- <img alt="Logo" src="assets/media/logos/logo-1-dark.svg" class="h-25px logo" /> -->
-                            PAPER PIXELS
+                            PAPER PIXELS 
+							@if (Auth::user()->isAdmin())
+								ADMIN
+							@endif
+							@if (Auth::user()->isStaff())
+								STAFF
+							@endif
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -167,7 +173,6 @@
 							<div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
 								<!--begin::Navbar-->
 								<div class="d-flex align-items-stretch" id="kt_header_nav">
-									
 									
 								</div>
 								<!--end::Navbar-->

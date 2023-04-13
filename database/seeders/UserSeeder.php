@@ -15,34 +15,44 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $person = People::create([
-            'first_name' => 'Admin',
-            'last_name' => 'User',
-            'address1' => 'bajada'
-        ]);
 
-        $person->user()->create([
-            'email' => 'Admin@dsgsonsgroup.com',
-            'password' => Hash::make('admin123'),
-            'role_id' => 1
-        ]);
-
-
+        $persons = [
+            [
+                'first_name' => 'Admin',
+                'last_name' => 'User',
+                'address1' => 'Davao'
+            ],
+            [
+                'first_name' => 'Staff',
+                'last_name' => 'User',
+                'address1' => 'Davao'
+            ],
+            [
+                'first_name' => 'Customer',
+                'last_name' => 'User',
+                'address1' => 'Davao'
+            ]
+        ];
         // $person = People::create([
-        //     'first_name' => 'John',
+        //     'first_name' => 'Admin',
         //     'last_name' => 'User',
-        //     'address1' => 'Bajada'
+        //     'address1' => 'bajada'
         // ]);
 
-        // $user = $person->user()->create([
-        //     'email' => 'john@dsgsonsgroup.com',
-        //     'password' => Hash::make('password123'),
-        //     'role_id' => 4
+        // $person->user()->create([
+        //     'email' => 'Admin@dsgsonsgroup.com',
+        //     'password' => Hash::make('admin123'),
+        //     'role_id' => 1
         // ]);
-
-        // $user->tenant()->create([
-        //     'tenant_number' => '1223'
-        // ]);
+        foreach ($persons as $person) {
+            $new_person = People::create($person);
+            $new_person->user()->create([
+                'email' => strtolower($person['first_name']) . '@gmail.com',
+                'password' => Hash::make(strtolower($person['first_name']) . '123'),
+                'role_id' => array_search($person['first_name'], array_column($persons, 'first_name')) + 1
+            ]);
+            
+        }
 
 
     }

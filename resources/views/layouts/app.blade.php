@@ -9,17 +9,13 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- <link rel="stylesheet" href="assets/assets/img/"> -->
-    <!-- <link rel="stylesheet" href="{{ asset('css/globals/style.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="{{ asset('/css/globals/plugins.bundle.css')}}" async>
-      <link rel="stylesheet" href="{{ asset('/css/globals/prismjs.bundle.css')}}" async>
-      <link rel="stylesheet" href="{{ asset('/css/globals/style.bundle.min.css')}}" async> -->
-      @once
+    
+      <!-- @once
       @stack('styles')
-      @endonce
+      @endonce -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script src="https://kit.fontawesome.com/133d03ba7a.js" crossorigin="anonymous"></script>
 
@@ -67,12 +63,9 @@
 
 
 
-            <!-- @guest
+            @guest
                 @if (Route::has('login'))
                   <a data-bs-toggle="modal" data-bs-target="#logInform"  class="text-decoration-none aLogin mx-2">Login</a>|
-                @endif
-
-                @if (Route::has('register'))
                   <a data-bs-toggle="modal" data-bs-target="#signUp"  class="text-decoration-none aLogin mx-2">Signup</a>
                 @endif
                 
@@ -84,7 +77,7 @@
                   @csrf
               </form>
                 
-            @endguest -->
+            @endguest
 
         </div>
         
@@ -232,16 +225,50 @@
               <button type="submit" class="myBtn myblue d-grid gap-2 col-6 mx-auto btn btn-md">Create Account</button><BR><BR>
               Already have an account? <a class="btn btn-sm rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#logInform">Login</a><BR><BR>
   
-              <!-- <a href="https://www.facebook.com/printcraffiti" class="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook text-secondary fs-4 m-1"></i></a> 
-              <a href="https://www.m.me/printcraffiti" class="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-messenger text-secondary fs-4 m-1"></i></a> 
-              <a href="" class=""><i class="fa-brands fa-pinterest text-secondary fs-4 m-1"></i></a> 
-              <a href="" class=""><i class="fa-brands fa-viber text-secondary fs-4 m-1"></i></a>  -->
+              
             </div>
           </form>
         </div>
       </div>
     </div><!-- END Modal SIGNUP-->
+    
+  <!-- Modal LOGIN-->
+  <div class="modal fade" id="logInform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  text-center" >
+      <div class="modal-content">
+        <button type="button" class="btn-close m-3 align-self-end" data-bs-dismiss="modal" aria-label="Close"></button>
+        <form class="form w-100" id="user_signin_form">
+          <h5 class="display-6 text-gray text-center">
+          <b>LOGIN</b></h5>
+          <div class="modal-body">
+            <div class="form-floating mb-3 ">
+              <input required type="email" id="email" name="email" class="form-control" placeholder="" autocomplete="email" autofocus>
+              <label>Email</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" id="password" name="password" class="form-control" placeholder="" required autocomplete="current-password">
+              <label for="floatingPassword">Password</label>
+            </div>
+            <!-- @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror -->
+            <label class="text-danger d-none invalid-credentials">Invalid Email Or Password</label>
+            <button type="submit" id="submit_credentials" class="d-grid gap-2 col-6 mx-auto btn btn-lg btn-secondary">Login</button><BR><BR>
+            <div class="">Forgot Password?</div>  
+            Don't have an account? <a class="btn btn-sm rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#signUp">Create Account</a><BR><BR>
 
+            <!-- <a href="https://www.facebook.com/printcraffiti" class="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook text-secondary fs-4 m-1"></i></a> 
+            <a href="https://www.m.me/printcraffiti" class="" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-messenger text-secondary fs-4 m-1"></i></a> 
+            <a href="" class=""><i class="fa-brands fa-pinterest text-secondary fs-4 m-1"></i></a> 
+            <a href="" class=""><i class="fa-brands fa-viber text-secondary fs-4 m-1"></i></a>  -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+   <!-- END Modal LOGIN-->
 
 
   <!-- Start How to Order Modal -->
@@ -306,5 +333,8 @@
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
   crossorigin="anonymous"></script>
+  <!--begin::Page Scripts(used by this page)-->
+  <script src="{{ mix('/js/pages/login/login.js')}}"></script>
+  <!--end::Page Scripts-->
 </body>
 </html>

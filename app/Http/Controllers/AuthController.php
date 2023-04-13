@@ -8,6 +8,7 @@ use App\Models\MasterTenant;
 use App\Models\Role;
 use App\Models\SystemLog;
 use App\Models\User;
+use App\Models\Product;
 use App\Providers\RouteServiceProvider;
 use App\Traits\ResponseApi;
 use Carbon\Carbon;
@@ -108,7 +109,7 @@ class AuthController extends Controller
             // $categories = Category::where('status',1)->get();
             return view('pages.dashboard.dashboard',['roles' => Role::get()]);
         } else {
-            
+            return view('home',['products' => Product::all()]);
         }
     }
 }

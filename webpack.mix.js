@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 
 mix.js('resources/js/pages/login/login.js','public/js/pages/login')
+   .js('resources/js/pages/login/client_login.js','public/js/pages/client_login')
    .js('resources/js/pages/profile/profile.js','public/js/pages/profile')
    .js('resources/js/pages/profile/update_password.js','public/js/pages/profile')
    .js('resources/js/pages/contract/contract_list.js','public/js/pages/contract')

@@ -51,7 +51,6 @@ void new class Login{
     authenticate = async(formData) =>
     {
         try{
-            // this.submitButton.setAttribute('data-kt-indicator', 'on')
 
             this.submitButton.disabled = true
 
