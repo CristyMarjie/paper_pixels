@@ -3,19 +3,10 @@
 namespace App\Repositories;
 
 use App\Interfaces\AdminInterface;
-use App\Models\MasterContract;
-use App\Models\MasterTenant;
-use App\Models\OfficialReceiptImport;
 use App\Traits\ResponseApi;
 use Illuminate\Support\Facades\Hash;
 use App\Models\People;
-use App\Models\SoaImport;
-use App\Models\SystemLog;
-use App\Models\Tenant;
-use App\Models\TenantAttachablesLog;
-use App\Models\TenantContactUs;
 use App\Models\User;
-use App\Models\BirOther;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -173,30 +164,6 @@ class AdminRepository implements AdminInterface
         return SystemLog::with('user')->findOrFail($id);
     }
 
-    public function viewfinanceLogsDetails()
-    {
-        $uploaded_logs = TenantAttachablesLog::where('status', 1)->get();
-        $uploaded_log_1 = [];
-        $this->checkNumberofDays($uploaded_logs);
-        foreach($uploaded_logs as $uploaded_log)
-        {
-            if(strlen($uploaded_log->taggable_id) == 4){
-                $uploaded_log_1 = TenantAttachablesLog::with('master_tenant_lease_number')->where('status',1)->get()->toArray();
-            }
-            // if($days >= 5){$uploaded_log->where('id', $uploaded_log->id)->update(['status' => 3]);}
-        }
-        return $uploaded_log_1;
-    }
-
-    private function checkNumberofDays($uploaded_logs)
-    {
-        foreach($uploaded_logs as $uploaded_log)
-        {
-            $remaining_days = Carbon::now()->diffInDays(Carbon::parse($uploaded_log->created_at));
-            if($remaining_days >= 5){$uploaded_log->where('id', $uploaded_log->id)->update(['status' => 3]);}
-        }
-        return $uploaded_logs;
-    }
     public function actionUserUpdate($request, $id)
     {
         try{
@@ -228,25 +195,6 @@ class AdminRepository implements AdminInterface
         }
     }
 
-    public function storeRequest($request)
-    {
-        try{
-            DB::beginTransaction();
-            $submitRequest = TenantContactUs::create($request->only('intended_to_id',
-                                                    'inquiry_title',
-                                                    'message'));
-
-            $submitRequest->request_submitted()->create(['user_id' => Auth::user()->id]);
-            DB::commit();
-
-            return $submitRequest;
-        }catch(Exception $e){
-            DB::rollBack();
-            return $this->error($e->getMessage(),$e->getCode());
-        }
-
-    }
-
     public function validateEmail($validateEmail, $isProfile, $currentID)
     {
         $validate = User::where('email', $validateEmail);
@@ -258,35 +206,5 @@ class AdminRepository implements AdminInterface
                 : response()->json(['valid' => true]));
     }
 
-    public function fetchTenantMaster($tenantID)
-    {
-        return MasterTenant::with('contracts')->where('tenant_number', $tenantID)->get();
-    }
-
-    public function removeSoa($id)
-    {
-        $remvoe_soa = SoaImport::findOrFail($id);
-        $remvoe_soa->update(['status' => 0]);
-        Storage::delete($remvoe_soa->filename);
-        return $remvoe_soa;
-    }
-
-    public function removeOR($id)
-    {
-        $remove_or = OfficialReceiptImport::findOrFail($id);
-        $remove_or->update(['status' => 0]);
-        Storage::delete($remove_or->path);
-        return $remove_or;
-    }
-
-    public function removeOthers($id)
-    {
-
-        $remove_others = BirOther::findOrFail($id);
-        $remove_others->delete();
-        Storage::delete($remove_others->path);
-        return $remove_others;
-
-    }
 
 }
