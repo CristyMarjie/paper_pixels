@@ -1,6 +1,0 @@
---2022-06-16 01:35:35--  https://tenant.gaisanomalls.com/tenant.sql
-Resolving tenant.gaisanomalls.com (tenant.gaisanomalls.com)... 18.142.23.33
-Connecting to tenant.gaisanomalls.com (tenant.gaisanomalls.com)|18.142.23.33|:443... connected.
-HTTP request sent, awaiting response... 404 Not Found
-2022-06-16 01:35:35 ERROR 404: Not Found.
-
